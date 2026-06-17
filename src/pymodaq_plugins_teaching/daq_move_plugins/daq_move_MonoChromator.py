@@ -42,8 +42,8 @@ class daq_move_MonoChromator(DAQ_Move_base):
 
     """
     is_multiaxes = False  # TODO for your plugin set to True if this plugin is controlled for a multiaxis controller
-    _axis_names: Union[List[str], Dict[str, int]] = ['Axis1', 'Axis2']  # TODO for your plugin: complete the list
-    _controller_units: Union[str, List[str]] = 'mm'  # TODO for your plugin: put the correct unit here, it could be
+    _axis_names: Union[List[str], Dict[str, int]] = ['Wavelength']  # TODO for your plugin: complete the list
+    _controller_units: Union[str, List[str]] = 'nm'  # TODO for your plugin: put the correct unit here, it could be
     # TODO  a single str (the same one is applied to all axes) or a list of str (as much as the number of axes)
     _epsilon: Union[float, List[float]] = 0.1  # TODO replace this by a value that is correct depending on your controller
     # TODO it could be a single float of a list of float (as much as the number of axes)
@@ -58,8 +58,7 @@ class daq_move_MonoChromator(DAQ_Move_base):
     def ini_attributes(self):
         #  TODO declare the type of the wrapper (and assign it to self.controller) you're going to use for easy
         #  autocompletion
-        self.controller: Spectrometer
-        self.controller.Spectrometer()
+        self.controller: Spectrometer = None
 
         #TODO declare here attributes you want/need to init with a default value
         pass
@@ -73,8 +72,8 @@ class daq_move_MonoChromator(DAQ_Move_base):
         """
 
         ## TODO for your custom plugin
-        raise NotImplementedError  # when writing your own plugin remove this line
-        pos = DataActuator(data=self.controller.your_method_to_get_the_actuator_value(),  # when writing your own plugin replace this line
+
+        pos = DataActuator(data=self.controller.get_wavelength(),  # when writing your own plugin replace this line
                            units=self.axis_unit)
         pos = self.get_position_with_scaling(pos)
         return pos
